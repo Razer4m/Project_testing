@@ -19,9 +19,13 @@
 #define UNUSED(x) (void)(x)
 #define MAX_INPUT_LENGTH 1024
 extern char **environ;
-/* strings */
-size_t _strlen(const char *str);
-size_t _strcspn(const char *s1, const char *s2);
+
+/*Strings*/
+char *_strpbrk(char *s, const char *accept);
+char *_strchr(const char *s, char c);
+char *_strtok(char *str, const char *delimiters);
+int _strcmp(char *s1, char *s2);
+int _strlen(char *str);
 
 /* shell functions */
 int main(int argc, char *argv[]);

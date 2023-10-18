@@ -33,7 +33,7 @@ char *read_input(void)
 void execute_command(char *input, char *argv0)
 {
 	char *trimmed_input = input + strspn(input, " "), *cmd;
-	size_t input_length = strlen(trimmed_input);
+	int input_length = _strlen(trimmed_input);
 	pid_t pid = fork();
 
 	if (input_length == 0)
@@ -82,7 +82,7 @@ void execute_command(char *input, char *argv0)
  */
 void handle_exit(char *input)
 {
-	if (strcmp(input, "exit") == 0)
+	if (_strcmp(input, "exit") == 0)
 	{
 		exit(EXIT_SUCCESS);
 	}
@@ -96,13 +96,13 @@ void handle_exit(char *input)
  */
 void print_env(char *input)
 {
-	if (strcmp(input, "env") == 0)
+	if (_strcmp(input, "env") == 0)
 	{
 		char **env = environ;
 
 		while (*env)
 		{
-			size_t len = strlen(*env);
+			int len = _strlen(*env);
 
 			write(STDOUT_FILENO, *env, len);
 			write(STDOUT_FILENO, "\n", 1);
@@ -126,12 +126,12 @@ char *get_path(char *in)
 	if (path)
 	{
 		path_cp = strdup(path);
-		cmd_len = strlen(in);
+		cmd_len = _strlen(in);
 		path_token = strtok(path_cp, ":");
 
 		while (path_token != NULL)
 		{
-			dir_len = strlen(path_token);
+			dir_len = _strlen(path_token);
 			file_path = malloc(cmd_len + dir_len + 2);
 			strcpy(file_path, path_token);
 			strcat(file_path, "/");
