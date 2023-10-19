@@ -41,3 +41,55 @@ char *_strdup(const char *str)
 	}
 	return (dup);
 }
+
+
+/**
+ * execute_command - Execute a command using fork and execlp.
+ *
+ * @input: The command to execute.
+ * @argv0: The name of the calling program for error reporting.
+ */
+void execute_command(char *input, char *argv0)
+{
+	char *trimmed_input = input + strspn(input, " "), *cmd;
+	int input_length = _strlen(trimmed_input);
+	pid_t pid = fork();
+
+	if (input_length == 0)
+	{
+		return;
+	}
+	if (pid == -1)
+	{
+		perror(argv0);
+		exit(EXIT_FAILURE);
+	}
+	else if (pid == 0)
+	{
+		char *args[MAX_INPUT_LENGTH], *token = strtok(trimmed_input, " ");
+		int arg_count = 0;
+
+		while (token != NULL)
+		{
+			args[arg_count++] = token;
+			token = strtok(NULL, " ");
+		}
+		args[arg_count] = NULL;
+		cmd = get_path(args[0]);
+		if (cmd == NULL)
+		{
+			perror(argv0);
+			return;
+		}
+		if (execve(cmd, args, environ) == -1)
+		{
+			perror(argv0);
+			exit(EXIT_FAILURE);
+		}
+		free(cmd);
+	}
+	else
+	{
+		wait(NULL);
+	}
+}
