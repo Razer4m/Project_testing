@@ -85,17 +85,17 @@ char *get_path(char *in)
 */
 int split_args(char *command, char **args)
 {
-    char *token = strtok(command, " ");
-    int arg_count = 0;
+	char *token = strtok(command, " ");
+	int arg_count = 0;
 
-    while (token != NULL)
-    {
-        args[arg_count++] = token;
-        token = strtok(NULL, " ");
-    }
-    args[arg_count] = NULL;
+	while (token != NULL)
+	{
+		args[arg_count++] = token;
+		token = strtok(NULL, " ");
+	}
+	args[arg_count] = NULL;
 
-    return arg_count;
+	return (arg_count);
 }
 
 /**
@@ -107,11 +107,11 @@ int split_args(char *command, char **args)
 */
 void execute_child(char **args, char *cmd, char *argv0)
 {
-    if (execve(cmd, args, environ) == -1)
-    {
-        perror(argv0);
-        exit(EXIT_FAILURE);
-    }
+	if (execve(cmd, args, environ) == -1)
+	{
+		perror(argv0);
+		exit(EXIT_FAILURE);
+	}
 }
 
 /**

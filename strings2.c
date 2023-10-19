@@ -41,21 +41,24 @@ char *_strcpy(char *dest, char *src)
 /**
  * _strdup - Returns a pointer to a newly allocated space in memory,
  *           which contains a copy of the string given as a parameter.
- * @str: The string to duplicate.
+ * @s: The string to duplicate.
  * Return: Pointer to the duplicated string, or NULL if it fails.
  */
 char *_strdup(char *s)
 {
-    if (s == NULL)
-        return NULL;
+	if (s == NULL)
+	{
+		return (NULL);
+	}
 
-    size_t len = _strlen(s);
-    char *copy = (char *)malloc(len + 1);
+	size_t len = _strlen(s);
+	char *copy = (char *)malloc(len + 1);
 
-    if (copy == NULL)
-        return NULL;
+	if (copy == NULL)
+	{
+		return (NULL);
+	}
+	_strcpy(copy, s);
 
-    _strcpy(copy, s);
-    return copy;
+	return (copy);
 }
-

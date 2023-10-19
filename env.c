@@ -1,6 +1,4 @@
 #include "shell.h"
-
-
 /**
  * handle_exit - Handles the "exit" command.
  *
